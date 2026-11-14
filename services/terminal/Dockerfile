@@ -35,7 +35,7 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends \
       bash-completion bind9-dnsutils build-essential bzip2 ca-certificates curl \
       fastfetch fd-find file git git-lfs gnupg htop iproute2 iputils-ping jq less \
-      lsof nano ncdu ncurses-term netcat-openbsd nginx openssh-client openssl \
+      libcap2-bin lsof nano ncdu ncurses-term netcat-openbsd nginx openssh-client openssl \
       pipx procps python3 python3-dev python3-pip python3-venv ripgrep rsync \
       sqlite3 sudo tini tmux tree ttyd tzdata unzip vim wget xz-utils zip \
  && rm -f /etc/nginx/sites-enabled/default \
@@ -74,6 +74,16 @@ RUN set -eux; \
       rm -rf /var/lib/apt/lists/*; \
     fi; \
     chmod 0644 /etc/ubuntu-terminal/skipped-packages
+
+# Railway's container capability set lacks NET_RAW, and the kernel refuses to
+# exec a binary whose file capabilities exceed that set: Ubuntu's ping
+# (cap_net_raw) fails with "Operation not permitted" for every user, root
+# included. Without file capabilities ping falls back to ICMP datagram
+# sockets, which work under sudo.
+RUN set -eux; \
+    caps="$(getcap -r /usr 2> /dev/null || true)"; \
+    for bin in $(printf '%s\n' "$caps" | awk 'NF {print $1}'); do setcap -r "$bin"; done; \
+    test -z "$(getcap -r /usr 2> /dev/null || true)"
 
 # Node.js LTS from nodejs.org. Ubuntu 26.04 ships Node.js 22.
 RUN set -eux; \

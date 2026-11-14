@@ -7,12 +7,12 @@
 | Ubuntu 26.04 LTS (Resolute Raccoon) | `ubuntu` official image, https://hub.docker.com/_/ubuntu, tag `resolute-20261105.1`, index digest `sha256:66b8084a…` (2026-11-12) | Various free licenses (see `/usr/share/doc/*/copyright` in the image) | Base image (`FROM`) and apt packages |
 | ttyd 1.7.7 | Ubuntu package `ttyd` (1.7.7-4build1, universe) | MIT, Copyright (c) 2016-2022 Shuanglei Tao | Web terminal on loopback, installed unmodified |
 | nginx 1.28 | Ubuntu package `nginx` | BSD-2-Clause | Basic-auth reverse proxy. The config was written for this template |
-| tmux 3.6a | Ubuntu package `tmux` | ISC | Persistent sessions |
+| tmux 3.6 | Ubuntu package `tmux` (3.6a) | ISC | Persistent sessions |
 | tini 0.19.0 | Ubuntu package `tini` | MIT | Init and child subreaper |
 | Node.js 24.22.3 LTS | Official tarballs from https://nodejs.org/dist/v24.22.3/, SHA-256 checked | MIT (bundled components under their own licenses, see `/usr/local/share/doc/nodejs/LICENSE`) | Installed unmodified into `/usr/local` |
 | git, Python 3.14, build-essential, ripgrep, fd-find, fastfetch and the other CLI tools | Ubuntu packages | Each package's own license (GPL, MIT, BSD, Apache and similar) | Installed unmodified from the Ubuntu archive |
 
-Changes to installed Ubuntu files: the image's existing `ubuntu` account (uid 1000) is added to the `sudo` group and gets bash as its shell, `/etc/sudoers.d/90-ubuntu-terminal` grants it passwordless sudo, nginx's default site is removed, and `/etc/skel` gets one line in `.bashrc` that loads this template's shell defaults plus an empty `.sudo_as_admin_successful` that silences Ubuntu's sudo hint. No package files are edited.
+Changes to installed Ubuntu files: file capabilities are removed from all binaries (Railway's containers cannot exec binaries whose capabilities they lack; this lets `sudo ping` work), the image's existing `ubuntu` account (uid 1000) is added to the `sudo` group and gets bash as its shell, `/etc/sudoers.d/90-ubuntu-terminal` grants it passwordless sudo, nginx's default site is removed, and `/etc/skel` gets one line in `.bashrc` that loads this template's shell defaults plus an empty `.sudo_as_admin_successful` that silences Ubuntu's sudo hint. No package files are edited.
 
 Optional packages named in `UBUNTU_EXTRA_PACKAGES` are installed from the Ubuntu archive at build time under their own licenses.
 

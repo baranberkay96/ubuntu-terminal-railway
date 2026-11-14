@@ -64,11 +64,11 @@ unset _dt_git
 # `touch ~/.hushlogin` turns it off.
 _dt_banner() {
   [[ -r /etc/ubuntu-terminal/motd ]] && cat /etc/ubuntu-terminal/motd
-  # CPU, memory and disk are left out: inside a container fastfetch reports the
-  # whole Railway host, not this service's plan limits.
+  # CPU, memory, disk and uptime are left out: inside a container fastfetch
+  # reports the whole Railway host, not this service.
   if command -v fastfetch > /dev/null 2>&1; then
     fastfetch --logo-type small \
-      --structure Title:Separator:OS:Kernel:Uptime:Shell 2> /dev/null || true
+      --structure Title:Separator:OS:Kernel:Shell 2> /dev/null || true
   fi
 }
 if [[ ! -e "$HOME/.hushlogin" ]] && shopt -q login_shell; then

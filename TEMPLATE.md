@@ -21,7 +21,8 @@ Ubuntu-specific changes:
 - ttyd 1.7.7 comes from Ubuntu universe (`1.7.7-4build1`), so it follows Ubuntu's security updates (libwebsockets) instead of a static binary.
 - `UBUNTU_EXTRA_PACKAGES` (build argument, like Kali's `KALI_EXTRA_PACKAGES`) replaces Debian's runtime `APT_PACKAGES` restore: packages are baked into the image and cost no RAM or time at boot.
 - No man pages: Ubuntu's container image is minimized.
-- The fastfetch banner leaves out CPU, memory and disk (it would show the Railway host).
+- The fastfetch banner leaves out CPU, memory, disk and uptime (they would show the Railway host).
+- File capabilities are stripped at build (as in 109): Ubuntu's `ping` carries `cap_net_raw`, which Railway's containers lack, so it failed with "Operation not permitted" even under sudo.
 
 ## Pinned versions (checked 2026-11-14)
 
@@ -32,7 +33,7 @@ Ubuntu-specific changes:
 | Node.js | nodejs.org tarball, SHA-256 checked | 24.22.3 LTS |
 | nginx | Ubuntu security | 1.28.3-2ubuntu1.12 |
 | tmux | Ubuntu security | 3.6a-2ubuntu0.1 |
-| Python | Ubuntu main | 3.14.3 |
+| Python | Ubuntu updates | 3.14.4 (seen in the first build) |
 
 ## Services
 
