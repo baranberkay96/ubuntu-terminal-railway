@@ -1,0 +1,18 @@
+
+  Ubuntu 26.04 LTS (Resolute Raccoon) web terminal on Railway
+  --------------------------------------------------------------------------
+  Saved:     /home/ubuntu is a Railway volume. The rest of the system resets
+             on every redeploy.
+  Sessions:  tmux keeps this shell running when the tab closes. Reopen the URL
+             to resume. New window: Ctrl-b c. Next: Ctrl-b n. Detach: Ctrl-b d.
+             Separate session: add ?arg=work to the URL.
+  Packages:  sudo apt update && sudo apt install PACKAGE works now but resets
+             on redeploy. To keep packages, list them in the service variable
+             UBUNTU_EXTRA_PACKAGES: Railway bakes them into the image.
+  Tools:     git, curl, vim, nano, htop, build-essential, python3, pipx,
+             node, npm (npm -g installs into ~/.npm-global).
+  Copying:   hold Shift while selecting text (tmux mouse mode is on).
+  Fair use:  Railway's Acceptable Use Policy applies. No crypto mining,
+             proxies, anonymizers or torrenting.
+  Banner:    touch ~/.hushlogin hides this message.
+
