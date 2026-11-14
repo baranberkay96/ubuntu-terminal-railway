@@ -69,7 +69,7 @@ Railway prices: RAM $10/GB-month, vCPU $20/vCPU-month, volume $0.15/GB-month.
 
 | Service | Idle (measured) | Typical | Notes |
 |---|---|---|---|
-| Terminal | {ram_idle} RAM, ~0.002 vCPU | 0.3 GB, 0.05 vCPU | Peaks come from what users run |
+| Terminal | 0.04 GB RAM (measured), ~0.002 vCPU | 0.12 GB after `npm install` (measured), 0.3 GB avg | Peaks come from what users run; a `pip --no-binary :all:` source build hit the 0.5 GB cap and was OOM-killed while the terminal stayed up |
 | Volume `/home` | 0.1 GB | 2-5 GB | Projects, venvs, node_modules |
 
 Estimated monthly cost: idle about $0.50, typical about $4.50. Minimum plan: Free (0.5 GB RAM per service) runs the shell; heavy builds need more. Image: about 42 MB base plus about 150 MB of packages and about 30 MB of Node.js, compressed, far below the 4 GB Trial/Free image cap.
@@ -81,7 +81,7 @@ Estimated monthly cost: idle about $0.50, typical about $4.50. Minimum plan: Fre
 - [ ] The terminal WebSocket (`/ws`, subprotocol `tty`) opens with the password and a command's output comes back.
 - [ ] `whoami` = `ubuntu`, `sudo -n true` works, `node -v`, `python3 -V`, `gcc --version`.
 - [ ] A file in `/home/ubuntu` survives a redeploy.
-- [ ] RAM stays under 0.5 GB with a shell open (Free plan).
+- [x] RAM stays under 0.5 GB with a shell open (Free plan): 40 MB idle, 115 MB after npm install, with `serviceInstanceLimitsUpdate(memoryGB: 0.5)` on 2026-11-14.
 - [ ] `PASSWORD=abc`: the deploy succeeds, the log shows the lock warning, every password gets 401.
 
 ## Open questions

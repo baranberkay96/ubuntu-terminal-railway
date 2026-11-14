@@ -35,7 +35,7 @@ A web terminal needs a long-running Linux container, a terminal server, real aut
 |---|---|---|
 | Terminal | Dockerfile based on `ubuntu:resolute-20261105.1` | nginx basic-auth proxy on port 8080 (public HTTPS domain, `/healthz`), ttyd on loopback, tmux sessions, user `ubuntu` with sudo, volume at `/home` |
 
-**Plan:** works on every plan, including Free (0.5 GB RAM per service). Measured on Railway: {ram_idle} of RAM idle with an open tmux session and {ram_busy} while running `npm install` and a Python build. Your own workloads decide the rest.
+**Plan:** works on every plan, including Free (0.5 GB RAM per service). Measured on Railway with a 0.5 GB memory limit: about 0.04 GB of RAM idle with an open tmux session, and about 0.12 GB after an `npm install` of Express and TypeScript. Large source builds (for example compiling Python packages with `pip install --no-binary`) can need more than 0.5 GB. On Free the kernel then stops that build, not the terminal; on Hobby and Pro the service can use more memory.
 
 **First login**
 
