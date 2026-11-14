@@ -1,5 +1,7 @@
 # Deploy and Host Ubuntu 26.04 Web Terminal with Railway
 
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/ubuntu-2604-web-terminal-browser-shell?referralCode=20H68q)
+
 An Ubuntu 26.04 LTS (Resolute Raccoon) shell that opens in any browser. You work as the user `ubuntu` with sudo, inside tmux, so sessions and long-running jobs survive closed tabs. A generated password protects the login, and your home directory sits on a persistent volume. Git, Python, Node.js 24, build tools and everyday CLI utilities come preinstalled.
 
 ## About Hosting Ubuntu 26.04 Web Terminal
